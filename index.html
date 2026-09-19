@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hujjat Tahlili</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <nav class="top-nav">
+      <div class="nav-brand">
+        <span class="brand-icon">⚖️</span>
+        <span class="brand-name">Hujjat Tahlili</span>
+      </div>
+      <div class="user-pill">
+        <div class="balance-badge">
+          <span class="balance-label">Balans:</span>
+          <span class="balance-amount">15,000 so'm</span>
+        </div>
+        <div class="user-profile">
+          <div class="user-avatar">A</div>
+          <span class="user-name">Anvar</span>
+        </div>
+      </div>
+    </nav>
+
+    <header class="app-header">
+      <h1>🔍 Hujjat Tahlili</h1>
+      <p>Ko'chmas mulk shartnomalarini AI yordamida tahlil qilish tizimi</p>
+    </header>
+
+    <section class="glass-card upload-card">
+      <div id="dropzone" class="dropzone">
+        <input type="file" id="file-input" accept=".txt" hidden>
+        <div id="dropzone-default" class="dropzone-content">
+          <div class="upload-icon-wrapper">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <div class="upload-plus-badge">+</div>
+          </div>
+          <p class="dropzone-title">Shartnoma faylini shu yerga tashlang yoki <span>tanlang</span></p>
+          <p class="dropzone-subtitle">Faqat .txt formatdagi matnli shartnomalar</p>
+        </div>
+
+        <div id="file-preview" class="file-preview-card" hidden>
+          <div class="file-preview-info">
+            <span class="file-icon">📄</span>
+            <div class="file-details">
+              <span id="file-name" class="file-name">shartnoma.txt</span>
+              <span id="file-size" class="file-size">0 KB</span>
+            </div>
+          </div>
+          <button type="button" id="remove-file-btn" class="file-remove-btn" title="Faylni o'chirish">✕</button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button id="analyze-btn" class="btn btn-primary" disabled>🔍 Tahlil qilish</button>
+        <button id="sample-btn" class="btn btn-secondary">📄 Namuna shartnoma bilan sinab ko'rish</button>
+      </div>
+      <p id="error-box" class="error-box" hidden></p>
+    </section>
+
+    <section id="status-card" class="glass-card status-card" hidden>
+      <div id="status-agent1" class="status-line">⏳ Xaridor Himoyachisi — navbatda</div>
+      <div id="status-agent2" class="status-line">⏳ Sotuvchi Vakili — navbatda</div>
+      <div id="status-agent3" class="status-line">⏳ Mustaqil Hakam — navbatda (1 va 2 tugagach)</div>
+    </section>
+
+    <section id="verdict-container"></section>
+    <section id="findings-container"></section>
+
+    <!-- AI Chatbot Section -->
+    <section id="chat-card" class="glass-card chat-card">
+      <div class="chat-header">
+        <div class="chat-header-title">
+          <span class="chat-avatar">⚖️</span>
+          <div>
+            <h3>AI Yurist Yordamchi</h3>
+            <span class="chat-status"><span class="status-dot"></span> Onlayn • Shartnoma va qonunchilik bo'yicha savol-javob</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-chips" id="prompt-chips">
+        <button class="chip" data-prompt="Ushbu shartnomada xaridor uchun qanday asosiy xavflar bor?">⚡ Xaridor uchun xavflar</button>
+        <button class="chip" data-prompt="Ko'chmas mulk shartnomasida notarial tasdiqlash majburiymi?">⚡ Notarial tasdiqlash</button>
+        <button class="chip" data-prompt="Shartnomadagi penya va jarimalar miqdori adolatlimi?">⚡ Penya va jarimalar</button>
+        <button class="chip" data-prompt="Shartnomani bir tomonlama bekor qilish tartibi qanday?">⚡ Bekor qilish tartibi</button>
+      </div>
+
+      <div class="chat-messages" id="chat-messages">
+        <div class="message ai-message">
+          <div class="msg-avatar">🤖</div>
+          <div class="msg-bubble">
+            Salom, Anvar! Men yuridik AI yordamchingizman. Shartnoma yoki O'zbekiston qonunchiligi bo'yicha savollaringizni bering!
+          </div>
+        </div>
+      </div>
+
+      <form id="chat-form" class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Savolingizni yozing (masalan: Notarial tasdiqlash shartmi?)..." autocomplete="off">
+        <button type="submit" id="chat-send-btn" class="btn btn-primary chat-send-btn">
+          <span>Yuborish</span> 🚀
+        </button>
+      </form>
+    </section>
+
+    <footer class="app-footer">
+      <hr>
+      <p>⚠️ Ushbu tahlil faqat ma'lumot uchun mo'ljallangan va yuridik maslahat o'rnini bosmaydi.
+      Muhim qarorlardan oldin malakali yuristga murojaat qiling.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
